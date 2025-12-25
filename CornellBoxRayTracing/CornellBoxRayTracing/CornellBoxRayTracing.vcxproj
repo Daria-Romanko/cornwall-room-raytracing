@@ -125,7 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CornwallRoomRayTracing.cpp" />
+    <ClCompile Include="CornellBoxRayTracing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AffineTransform.h" />

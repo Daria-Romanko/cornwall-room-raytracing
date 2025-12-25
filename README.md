@@ -1,8 +1,8 @@
-# Cornwall Room Ray Tracing
+# Cornell Box Ray Tracing
 
 Учебный проект по рейтрейсингу: построение сцены **«Корнуэльская комната»**.
 
-![Cornwall Room](CornwallRoomRayTracing/models/screenshot.png)
+![Cornell Box](CornellBoxRayTracing/models/screenshot.png)
 
 ## О проекте
 

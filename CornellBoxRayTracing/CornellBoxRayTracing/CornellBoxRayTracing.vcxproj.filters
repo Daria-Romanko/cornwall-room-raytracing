@@ -45,7 +45,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CornwallRoomRayTracing.cpp">
+    <ClCompile Include="CornellBoxRayTracing.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
