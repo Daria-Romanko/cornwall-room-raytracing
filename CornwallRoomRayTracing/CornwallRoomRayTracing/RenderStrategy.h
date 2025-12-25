@@ -90,7 +90,7 @@ public:
         const unsigned height = image.getSize().y;
         if (width == 0 || height == 0) return;
 
-        std::vector<RTMesh>   meshes;
+        std::vector<RTMesh> meshes;
         std::vector<RTSphere> spheres;
         buildRTObjects(scene, meshes, spheres);
 
@@ -191,27 +191,20 @@ private:
                 s.isHidden = false;
                 s.isLight = false;
                 s.material = m->material;
-
                 s.center = m->position;
-
                 float r = std::max({ std::abs(m->scale.x), std::abs(m->scale.y), std::abs(m->scale.z) });
                 s.radius = std::max(1e-4f, r);
-
                 outSpheres.push_back(s);
                 continue;
             }
 
             RTMesh r;
             r.mesh = m;
-
             r.isHidden = (m->name == "Wall_FrontWall");
-            r.isLight = (m->name.find("LightCapsule") != std::string::npos ||
-                m->name.find("Light_") != std::string::npos);
-
+            r.isLight = (m->name.find("LightCapsule") != std::string::npos || m->name.find("Light_") != std::string::npos);
             r.model = m->getTransformMatrix();
             r.invModel = glm::inverse(r.model);
             r.normalMat = glm::transpose(glm::inverse(glm::mat3(r.model)));
-
             outMeshes.push_back(r);
         }
     }
@@ -221,8 +214,7 @@ private:
         if (depth >= MAX_DEPTH) return scene.backgroundColor;
 
         HitInfo hit;
-        const bool primary = (depth == 0);
-        if (!intersectScene(origin, dirUnit, meshes, spheres, hit, primary))
+        if (!intersectScene(origin, dirUnit, meshes, spheres, hit, (depth == 0)))
             return scene.backgroundColor;
 
         if (hit.hitLight) return glm::vec3(1.0f);
@@ -437,11 +429,7 @@ private:
         return t > EPS_MT;
     }
 
-    glm::vec3 shadeDirect(const HitInfo& hit,
-        const std::vector<Light>& lights,
-        const Scene& scene,
-        const std::vector<RTMesh>& meshes,
-        const std::vector<RTSphere>& spheres)
+    glm::vec3 shadeDirect(const HitInfo& hit, const std::vector<Light>& lights, const Scene& scene, const std::vector<RTMesh>& meshes, const std::vector<RTSphere>& spheres)
     {
         const Material& m = hit.material;
 
@@ -466,7 +454,7 @@ private:
             glm::vec3 lightCol = Ls.color * Ls.intensity * atten;
 
             // diffuse
-            col += lightCol * (m.diffuseColor * ndotl);
+            col += lightCol * m.diffuseColor * ndotl;
 
             // spec
             if (m.shininess > 1.0f) {
